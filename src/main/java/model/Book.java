@@ -1,9 +1,5 @@
 package model;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
+import javax.persistence.*;
 @Entity
 public class Book {
 
@@ -13,6 +9,10 @@ public class Book {
     private String title;
     private String author;
     private String isbn;
+
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable=true)
+    private User checkedOutBy;
 
     // Default constructor is needed by JPA
     protected Book() {

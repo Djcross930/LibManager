@@ -1,9 +1,6 @@
 package model;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
+import javax.persistence.*;
+import java.util.List;
 @Entity
 public class User {
 
@@ -12,6 +9,9 @@ public class User {
     private Long id;
     private String firstName;
     private String lastName;
+
+    @OneToMany(mappedBy = "checkedOutBy")
+    private List<Book> books;
 
     // Default constructor is needed by JPA
     protected User() {}
