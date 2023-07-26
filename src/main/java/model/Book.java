@@ -1,5 +1,7 @@
 package model;
+
 import javax.persistence.*;
+
 @Entity
 public class Book {
 
@@ -9,6 +11,7 @@ public class Book {
     private String title;
     private String author;
     private String isbn;
+    private boolean checkedOut; // Added this field
 
     @ManyToOne
     @JoinColumn(name="user_id", nullable=true)
@@ -22,6 +25,7 @@ public class Book {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
+        this.checkedOut = false; // Initialize to false
     }
 
     // Getters and setters
@@ -65,5 +69,11 @@ public class Book {
         this.checkedOutBy = checkedOutBy;
     }
 
-}
+    public boolean isCheckedOut() {  // Getter for checkedOut
+        return checkedOut;
+    }
 
+    public void setCheckedOut(boolean checkedOut) { // Setter for checkedOut
+        this.checkedOut = checkedOut;
+    }
+}
