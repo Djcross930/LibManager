@@ -33,6 +33,9 @@ public class User {
     public String getLastName() {
         return lastName;
     }
+    public List<Book> getBooks() {
+        return books;
+    }
 
     // Setters
     public void setId(Long id) {
@@ -45,6 +48,10 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
     }
 }
 

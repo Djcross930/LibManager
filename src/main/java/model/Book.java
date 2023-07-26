@@ -56,5 +56,14 @@ public class Book {
     public void setIsbn(String isbn) {
         this.isbn = isbn;
     }
+
+    public User getCheckedOutBy() {
+        return checkedOutBy;
+    }
+
+    public void setCheckedOutBy(User checkedOutBy) {
+        this.checkedOutBy = checkedOutBy;
+    }
+
 }
 
