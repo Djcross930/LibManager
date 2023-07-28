@@ -25,6 +25,11 @@ public class BookService {
         return bookRepository.findAll();
     }
 
+    public Book getBookById(Long id) {
+        return bookRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Book not found with id: " + id));
+    }
+
     public Book getBook(Long id) {
         return bookRepository.findById(id).orElse(null);  // Returns null if the book does not exist
     }
@@ -33,12 +38,20 @@ public class BookService {
         bookRepository.deleteById(id);
     }
 
-    public Book updateBook(Book book) {
-        // In this case, the id of the book passed to this method should be set to the id of the book you want to update.
-        // If the book exists, the existing book will be updated with the fields of the passed book.
-        // If the book does not exist, a new book will be created with the fields of the passed book.
-        return bookRepository.save(book);
+    public Book updateBook(Long id, Book newBook) {
+        return bookRepository.findById(id)
+                .map(book -> {
+                    book.setTitle(newBook.getTitle());
+                    book.setAuthor(newBook.getAuthor());
+                    book.setIsbn(newBook.getIsbn());
+                    return bookRepository.save(book);
+                })
+                .orElseGet(() -> {
+                    newBook.setId(id);
+                    return bookRepository.save(newBook);
+                });
     }
+
 
     // You can continue to add more methods here based on your application needs...
 }
