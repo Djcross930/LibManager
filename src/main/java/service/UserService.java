@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import repository.UserRepository;
 import repository.BookRepository;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -45,6 +46,19 @@ public class UserService {
             throw new IllegalStateException("This book is already checked out.");
         }
     }
+    public User updateUser(Long id, User userDetails) {
+        Optional<User> optionalUser = userRepository.findById(id);
+
+        if (!optionalUser.isPresent()) {
+            return null;
+        }
+
+        User user = optionalUser.get();
+        user.setFirstName(userDetails.getFirstName());
+        user.setLastName(userDetails.getLastName());
+        return userRepository.save(user);
+    }
+
 
     public void returnBook(User user, Book book) {
         if(book.isCheckedOut() && user.equals(book.getCheckedOutBy())) {
